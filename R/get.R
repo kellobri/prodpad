@@ -49,16 +49,33 @@ get_contacts <- function(client) {
 }
 
 #' @export
-get_ideas <- function(client, product = NULL, tags = NULL) {
+get_ideas <- function(client, product = NULL, tags = NULL, personas = NULL) {
   url <- glue::glue(
     "/ideas?size=10000",
     safe_query(product, prefix="product="),
     safe_query(tags, prefix="tags="),
+    safe_query(personas, prefix="personas"),
     .sep = "&"
   )
   rawdat <- client$GET(url)
 
   tidyr::unnest_wider(tibble::tibble(dat = rawdat$ideas), dat)
+}
+
+#' @export
+get_idea <- function(client, id) {
+  url <- glue::glue("/ideas/", id)
+  rawdat <- client$GET(url)
+
+  tidyr::unnest_wider(tibble::tibble(dat=rawdat), dat)
+}
+
+#' @export
+get_comments <- function(client, id) {
+  url <- glue::glue("/ideas/", id, "/comments")
+  rawdat <- client$GET(url)
+  
+  tidyr::unnest_wider(tibble::tibble(dat=rawdat), dat)
 }
 
 #' @export
