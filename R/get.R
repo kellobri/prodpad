@@ -63,14 +63,6 @@ get_ideas <- function(client, product = NULL, tags = NULL, personas = NULL) {
 }
 
 #' @export
-get_idea <- function(client, id) {
-  url <- glue::glue("/ideas/", id)
-  rawdat <- client$GET(url)
-
-  tidyr::unnest_wider(tibble::tibble(dat=rawdat), dat)
-}
-
-#' @export
 get_comments <- function(client, id) {
   url <- glue::glue("/ideas/", id, "/comments")
   rawdat <- client$GET(url)
