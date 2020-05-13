@@ -1,4 +1,4 @@
-safe_query <- function(expr, prefix = "", collapse = "|") {
+safe_query <- function(expr, prefix = "", collapse = ",") {
   if (is.null(expr)) {
     return("")
   } else if (identical(expr, TRUE)) {

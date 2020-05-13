@@ -49,10 +49,11 @@ get_contacts <- function(client) {
 }
 
 #' @export
-get_ideas <- function(client, product = NULL) {
+get_ideas <- function(client, product = NULL, tags = NULL) {
   url <- glue::glue(
     "/ideas?size=10000",
     safe_query(product, prefix="product="),
+    safe_query(tags, prefix="tags="),
     .sep = "&"
   )
   rawdat <- client$GET(url)
